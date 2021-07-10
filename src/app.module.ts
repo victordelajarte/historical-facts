@@ -5,7 +5,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
+import { AuthenticationInterceptor } from './common/interceptors/authentication.interceptor';
 import { FactsModule } from './facts/facts.module';
 
 @Module({

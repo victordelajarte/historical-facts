@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { VALID_TOKEN, AUTHORIZED_USERS } from './constants';
-import { User } from './User';
+import { User } from './user.interface';
 
 @Injectable()
 export class AuthenticationService {

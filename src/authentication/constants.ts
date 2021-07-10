@@ -1,4 +1,4 @@
-import { User } from './User';
+import { User } from './user.interface';
 
 export const VALID_TOKEN = 'valid-token';
 export const AUTHORIZED_USERS: User[] = [

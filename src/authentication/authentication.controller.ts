@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthenticationService } from './authentication.service';
 import { UserDto } from './user-dto';
 
@@ -7,8 +8,12 @@ export class AuthenticationController {
   constructor(private authenticationService: AuthenticationService) {}
 
   @Post('login')
-  public login(@Body() userDto: UserDto): string {
+  public login(
+    @Body() userDto: UserDto,
+    @Res({ passthrough: true }) response: Response,
+  ): string {
     const token = this.authenticationService.login(userDto);
+    response.cookie('auth-token', token);
     return token;
   }
 }

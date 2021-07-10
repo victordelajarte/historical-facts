@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ErrorHandlingInterceptor } from './interceptors/error-handling.interceptor';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,8 @@ async function bootstrap(): Promise<void> {
     new LoggingInterceptor(),
     new ErrorHandlingInterceptor(),
   );
+
+  app.use(cookieParser());
   await app.listen(3000);
 }
 bootstrap();

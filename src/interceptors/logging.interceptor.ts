@@ -14,8 +14,14 @@ export class LoggingInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     const now = Date.now();
+    const request = context.switchToHttp().getRequest();
+
     return next
       .handle()
-      .pipe(tap(() => this.logger.log(`After... ${Date.now() - now}ms`)));
+      .pipe(
+        tap(() =>
+          this.logger.log(`${request.originalUrl} - ${Date.now() - now}ms`),
+        ),
+      );
   }
 }

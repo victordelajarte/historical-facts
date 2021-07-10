@@ -5,5 +5,6 @@ import { AuthenticationController } from './authentication.controller';
 @Module({
   providers: [AuthenticationService],
   controllers: [AuthenticationController],
+  exports: [AuthenticationService],
 })
 export class AuthenticationModule {}

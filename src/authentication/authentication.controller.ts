@@ -11,9 +11,9 @@ export class AuthenticationController {
   public login(
     @Body() userDto: UserDto,
     @Res({ passthrough: true }) response: Response,
-  ): string {
+  ): void {
     const token = this.authenticationService.login(userDto);
-    response.cookie('auth-token', token);
-    return token;
+    response.cookie('authToken', token);
+    return response.redirect('/');
   }
 }

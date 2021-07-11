@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Fact } from './fact.interface';
 
 const FACTS: Fact[] = [
@@ -16,7 +16,7 @@ export class FactsService {
 
   public getFact(id: number): Fact {
     if (id >= FACTS.length) {
-      throw new Error('Not found');
+      throw new NotFoundException();
     }
     return FACTS[id];
   }
@@ -25,5 +25,24 @@ export class FactsService {
     const newLength = FACTS.push(fact);
     const newIndex = newLength - 1;
     return newIndex;
+  }
+
+  public updateFact(id: number, update: Fact): Fact {
+    const fact = {
+      ...this.getFact(id),
+      ...update,
+    };
+
+    FACTS[id] = fact;
+
+    return fact;
+  }
+
+  public deleteFact(id: number): Fact {
+    const fact = this.getFact(id);
+
+    FACTS.splice(id, 1);
+
+    return fact;
   }
 }

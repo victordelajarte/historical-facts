@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+
+import { AuthenticationGuard } from './common/guards';
+
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AuthenticationInterceptor } from './common/interceptors/authentication.interceptor';
 import { FactsModule } from './facts/facts.module';
+import { HttpExceptionFilter } from './common/filters';
 
 @Module({
   imports: [
@@ -17,8 +20,12 @@ import { FactsModule } from './facts/facts.module';
   ],
   providers: [
     {
-      provide: APP_INTERCEPTOR,
-      useClass: AuthenticationInterceptor,
+      provide: APP_GUARD,
+      useClass: AuthenticationGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
     },
   ],
 })

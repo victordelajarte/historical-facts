@@ -13,4 +13,17 @@ export class FactsService {
   public getAllFacts(): Fact[] {
     return FACTS;
   }
+
+  public getFact(id: number): Fact {
+    if (id >= FACTS.length) {
+      throw new Error('Not found');
+    }
+    return FACTS[id];
+  }
+
+  public createFact(fact: Fact): number {
+    const newLength = FACTS.push(fact);
+    const newIndex = newLength - 1;
+    return newIndex;
+  }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { VALID_TOKEN, AUTHORIZED_USERS } from './constants';
 import { User } from './user.interface';
 
@@ -6,7 +6,7 @@ import { User } from './user.interface';
 export class AuthenticationService {
   public validateToken(token: string): void {
     if (token !== VALID_TOKEN) {
-      throw new Error('Unauthorized');
+      throw new UnauthorizedException();
     }
   }
 
@@ -16,9 +16,19 @@ export class AuthenticationService {
     );
 
     if (!user) {
-      throw new Error('Unauthorized');
+      throw new UnauthorizedException();
     }
 
+    return VALID_TOKEN;
+  }
+
+  public signup({ email, password }: User): string {
+    const existingUser = AUTHORIZED_USERS.find((user) => user.email === email);
+    if (existingUser) {
+      throw new UnauthorizedException();
+    }
+
+    AUTHORIZED_USERS.push({ email, password });
     return VALID_TOKEN;
   }
 }

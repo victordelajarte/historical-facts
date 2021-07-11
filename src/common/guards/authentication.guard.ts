@@ -7,7 +7,10 @@ import {
 import { Observable } from 'rxjs';
 import { AuthenticationService } from 'src/authentication/authentication.service';
 
-const NOT_PROTECTED_ROUTES = ['/api/authentication/login'];
+const NOT_PROTECTED_ROUTES = [
+  '/api/authentication/login',
+  '/api/authentication/signup',
+];
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {

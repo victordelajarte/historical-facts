@@ -1,10 +1,25 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { format } from 'date-fns';
 import { Fact } from './fact.interface';
 
 const FACTS: Fact[] = [
   {
     date: '15/02/1995',
     description: 'My Birthday!',
+  },
+  {
+    date: '12/11/1963',
+    description:
+      "Un président américain profite d'un moment en voiture pour se vider la tête",
+  },
+  {
+    date: '19/11/1977',
+    description: 'A New Hope!',
+  },
+  {
+    date: format(new Date(), 'dd/MM/yyyy'),
+    description:
+      'Today is a great day, enjoy it and make at least someone smile 😊',
   },
 ];
 
